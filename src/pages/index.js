@@ -5,6 +5,7 @@ import Category from "../../components/category";
 import Sort from "../../components/sort";
 import Pizza from "../../components/pizza";
 import {useEffect, useState} from "react";
+import Skeleton from "../../components/skeleton";
 
 //const inter = Inter({subsets: ['latin']})
 
@@ -20,9 +21,14 @@ export default function Home() {
     //category
     const [activeCategory, setActiveCategory] = useState(0)
 
+    //loading
+    const [loading, setLoading] = useState(true)
+
 
     useEffect(() => {
+        setLoading(true)
         getPizzas()
+        setLoading(false)
     }, [activeSort])
 
     const getPizzas = async () => {
@@ -51,7 +57,9 @@ export default function Home() {
                         </div>
                         <h2 className="content__title">All pizzas</h2>
                         <div className="content__items">
-                            {filterByCategory.map(item => <Pizza key={item.id} {...item}/>)}
+                            {loading ? [...new Array(9)].map((item, i) => <div className="pizza-block" key={i}>
+                                <Skeleton uniqueKey={15}/>
+                            </div>) : filterByCategory.map(item => <Pizza key={item.id} {...item}/>)}
                         </div>
                     </div>
                 </div>

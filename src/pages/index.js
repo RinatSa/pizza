@@ -13,12 +13,16 @@ export default function Home() {
     //pizzas data
     const [pizzas, setPizzas] = useState([])
 
+    //sort
+    const sortLabel = ["popularity", "price", "title"]
+    const [activeSort, setActiveSort] = useState(0)
+
     useEffect(() => {
         getPizzas()
-    }, [])
+    }, [activeSort])
 
     const getPizzas = async () => {
-        const res = await fetch(`https://64560f792e41ccf16912d161.mockapi.io/items`)
+        const res = await fetch(`https://64560f792e41ccf16912d161.mockapi.io/items?sortBy=${sortLabel[activeSort]}`)
         const data = res.json()
             .then(data => setPizzas(data))
     }
@@ -37,7 +41,7 @@ export default function Home() {
                     <div className="container">
                         <div className="content__top">
                             <Category/>
-                            <Sort/>
+                            <Sort activeSort={activeSort} setActiveSort={setActiveSort}/>
                         </div>
                         <h2 className="content__title">All pizzas</h2>
                         <div className="content__items">

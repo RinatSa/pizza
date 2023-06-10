@@ -1,6 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-function Sort(props) {
+function Sort({activeSort, setActiveSort}) {
+
+    // sort data and logic
+    const sort = ["Popularity", "Price", "A-Z"]
+
+    // show sort
+    const [showPopup, setShowPopUp] = useState(false)
     return (
         <div className="sort">
             <div className="sort__label">
@@ -17,15 +23,16 @@ function Sort(props) {
                     />
                 </svg>
                 <b>Sort by:</b>
-                <span>popularity</span>
+                <span onClick={() => setShowPopUp(prevState => !prevState)}>{sort[activeSort]}</span>
             </div>
-            <div className="sort__popup">
+            {showPopup && <div className="sort__popup">
                 <ul>
-                    <li className="active">Popularity</li>
-                    <li>Price</li>
-                    <li>A-Z</li>
+                    {sort.map((item, i) => <li key={i} onClick={() => {
+                        setActiveSort(i)
+                        setShowPopUp(false)
+                    }}>{item}</li>)}
                 </ul>
-            </div>
+            </div>}
         </div>
     );
 }

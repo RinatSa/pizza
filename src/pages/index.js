@@ -4,10 +4,25 @@ import Header from "../../components/header";
 import Category from "../../components/category";
 import Sort from "../../components/sort";
 import Pizza from "../../components/pizza";
+import {useEffect, useState} from "react";
 
 //const inter = Inter({subsets: ['latin']})
 
 export default function Home() {
+
+    //pizzas data
+    const [pizzas, setPizzas] = useState([])
+
+    useEffect(() => {
+        getPizzas()
+    }, [])
+
+    const getPizzas = async () => {
+        const res = await fetch(`https://64560f792e41ccf16912d161.mockapi.io/items`)
+        const data = res.json()
+            .then(data => setPizzas(data))
+    }
+
     return (
         <>
             <Head>
@@ -26,7 +41,7 @@ export default function Home() {
                         </div>
                         <h2 className="content__title">All pizzas</h2>
                         <div className="content__items">
-                            <Pizza/>
+                            {pizzas.map(item => <Pizza key={item.id} {...item}/>)}
                         </div>
                     </div>
                 </div>

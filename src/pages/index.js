@@ -17,6 +17,10 @@ export default function Home() {
     const sortLabel = ["popularity", "price", "title"]
     const [activeSort, setActiveSort] = useState(0)
 
+    //category
+    const [activeCategory, setActiveCategory] = useState(0)
+
+
     useEffect(() => {
         getPizzas()
     }, [activeSort])
@@ -26,6 +30,8 @@ export default function Home() {
         const data = res.json()
             .then(data => setPizzas(data))
     }
+
+    const filterByCategory = activeCategory === 0 ? pizzas : pizzas.filter(item => item.category === activeCategory)
 
     return (
         <>
@@ -40,12 +46,12 @@ export default function Home() {
                 <div className="content">
                     <div className="container">
                         <div className="content__top">
-                            <Category/>
+                            <Category activeCategory={activeCategory} setActiveCategory={setActiveCategory}/>
                             <Sort activeSort={activeSort} setActiveSort={setActiveSort}/>
                         </div>
                         <h2 className="content__title">All pizzas</h2>
                         <div className="content__items">
-                            {pizzas.map(item => <Pizza key={item.id} {...item}/>)}
+                            {filterByCategory.map(item => <Pizza key={item.id} {...item}/>)}
                         </div>
                     </div>
                 </div>

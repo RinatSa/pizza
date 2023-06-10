@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 
-function Category(props) {
-
-    const [activeCategory, setActiveCategory] = useState()
+function Category({activeCategory, setActiveCategory}) {
 
     const category = [
         {id: 0, label: "All"},

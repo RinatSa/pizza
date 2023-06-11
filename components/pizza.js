@@ -4,6 +4,7 @@ function Pizza({imageUrl, title, price, sizes, types}) {
 
     const [size, setSize] = useState(0)
     const [dough, setDough] = useState(0)
+    const [pizzasCount, setPizzasCount] = useState(0)
     const doughType = ["thin", "tradition"]
     return (
         <div className="pizza-block">
@@ -25,7 +26,7 @@ function Pizza({imageUrl, title, price, sizes, types}) {
             </div>
             <div className="pizza-block__bottom">
                 <div className="pizza-block__price">from {price} €</div>
-                <div className="button button--outline button--add">
+                <div className="button button--outline button--add" onClick={() => setPizzasCount(pizzasCount + 1)}>
                     <svg
                         width="12"
                         height="12"
@@ -39,7 +40,7 @@ function Pizza({imageUrl, title, price, sizes, types}) {
                         />
                     </svg>
                     <span>Add</span>
-                    <i>2</i>
+                    <i>{pizzasCount}</i>
                 </div>
             </div>
         </div>

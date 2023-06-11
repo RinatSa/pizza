@@ -23,7 +23,7 @@ function Sort({activeSort, setActiveSort}) {
                     />
                 </svg>
                 <b>Sort by:</b>
-                <span onClick={() => setShowPopUp(prevState => !prevState)}>{sort[activeSort]}</span>
+                <span onClick={() => setShowPopUp(prevProps => !prevProps)}>{sort[activeSort]}</span>
             </div>
             {showPopup && <div className="sort__popup">
                 <ul>

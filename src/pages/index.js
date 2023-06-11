@@ -24,6 +24,9 @@ export default function Home() {
     //loading
     const [loading, setLoading] = useState(true)
 
+    //search
+    const [term, setTerm] = useState("")
+
 
     useEffect(() => {
         setLoading(true)
@@ -39,6 +42,8 @@ export default function Home() {
 
     const filterByCategory = activeCategory === 0 ? pizzas : pizzas.filter(item => item.category === activeCategory)
 
+    const searching = term === "" ? filterByCategory : filterByCategory.filter(item => item.title.toLowerCase().includes(term.toLowerCase()))
+
     return (
         <>
             <Head>
@@ -48,7 +53,7 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
             <div className="wrapper">
-                <Header/>
+                <Header term={term} setTerm={setTerm}/>
                 <div className="content">
                     <div className="container">
                         <div className="content__top">
@@ -59,7 +64,7 @@ export default function Home() {
                         <div className="content__items">
                             {loading ? [...new Array(9)].map((item, i) => <div className="pizza-block" key={i}>
                                 <Skeleton uniqueKey={15}/>
-                            </div>) : filterByCategory.map(item => <Pizza key={item.id} {...item}/>)}
+                            </div>) : searching.map(item => <Pizza key={item.id} {...item}/>)}
                         </div>
                     </div>
                 </div>

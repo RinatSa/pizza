@@ -1,18 +1,23 @@
 import React from 'react';
+import Link from "next/link";
+import Search from "./search";
 
-function Header(props) {
+function Header({term, setTerm}) {
     return (
         <div className="header">
             <div className="container">
-                <div className="header__logo">
-                    <img width="38" src="pizza-logo.svg" alt="Pizza logo"/>
-                    <div>
-                        <h1>React Pizza</h1>
-                        <p>The most delicious pizza in the universe</p>
+                <Link href="/">
+                    <div className="header__logo">
+                        <img width="38" src="pizza-logo.svg" alt="Pizza logo"/>
+                        <div>
+                            <h1>React Pizza</h1>
+                            <p>The most delicious pizza in the universe</p>
+                        </div>
                     </div>
-                </div>
+                </Link>
+                <Search term={term} setTerm={setTerm}/>
                 <div className="header__cart">
-                    <a href="/cart.html" className="button button--cart">
+                    <Link href="/cart" className="button button--cart">
                         <span>520 ₽</span>
                         <div className="button__delimiter"></div>
                         <svg
@@ -45,7 +50,7 @@ function Header(props) {
                             />
                         </svg>
                         <span>3</span>
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>

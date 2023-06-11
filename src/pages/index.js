@@ -22,7 +22,7 @@ export default function Home() {
     const activeSort = useSelector(state => state.filter.activeSort)
 
     //category
-    const [activeCategory, setActiveCategory] = useState(0)
+    const activeCategory = useSelector(state => state.filter.activeCategory)
 
     //loading
     const [loading, setLoading] = useState(true)
@@ -60,7 +60,7 @@ export default function Home() {
                 <div className="content">
                     <div className="container">
                         <div className="content__top">
-                            <Category activeCategory={activeCategory} setActiveCategory={setActiveCategory}/>
+                            <Category/>
                             <Sort/>
                         </div>
                         <h2 className="content__title">All pizzas</h2>

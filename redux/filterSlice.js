@@ -3,7 +3,8 @@ import {createSlice} from "@reduxjs/toolkit";
 const initialState = {
     showPopup: false,
     activeSort: 0,
-    activeCategory: 0
+    activeCategory: 0,
+    term: ""
 }
 
 export const filterSlice = createSlice({
@@ -18,9 +19,12 @@ export const filterSlice = createSlice({
         },
         setActiveCategory(state, action) {
             state.activeCategory = action.payload
+        },
+        setTerm(state, action) {
+            state.term = action.payload
         }
     }
 })
 
-export const {setShowPopup, setActiveSort, setActiveCategory} = filterSlice.actions
+export const {setShowPopup, setActiveSort, setActiveCategory, setTerm} = filterSlice.actions
 export default filterSlice.reducer

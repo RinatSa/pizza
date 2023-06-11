@@ -28,7 +28,7 @@ export default function Home() {
     const [loading, setLoading] = useState(true)
 
     //search
-    const [term, setTerm] = useState("")
+    const term = useSelector(state => state.filter.term)
 
 
     useEffect(() => {
@@ -56,7 +56,7 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
             <div className="wrapper">
-                <Header term={term} setTerm={setTerm}/>
+                <Header/>
                 <div className="content">
                     <div className="container">
                         <div className="content__top">

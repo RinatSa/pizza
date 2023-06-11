@@ -2,7 +2,7 @@ import React from 'react';
 import Link from "next/link";
 import Search from "./search";
 
-function Header({term, setTerm}) {
+function Header() {
     return (
         <div className="header">
             <div className="container">
@@ -15,7 +15,7 @@ function Header({term, setTerm}) {
                         </div>
                     </div>
                 </Link>
-                <Search term={term} setTerm={setTerm}/>
+                <Search/>
                 <div className="header__cart">
                     <Link href="/cart" className="button button--cart">
                         <span>520 ₽</span>

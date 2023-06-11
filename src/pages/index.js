@@ -6,17 +6,20 @@ import Sort from "../../components/sort";
 import Pizza from "../../components/pizza";
 import {useEffect, useState} from "react";
 import Skeleton from "../../components/skeleton";
+import {useDispatch, useSelector} from "react-redux";
 
 //const inter = Inter({subsets: ['latin']})
 
 export default function Home() {
+
+    const dispatch = useDispatch()
 
     //pizzas data
     const [pizzas, setPizzas] = useState([])
 
     //sort
     const sortLabel = ["popularity", "price", "title"]
-    const [activeSort, setActiveSort] = useState(0)
+    const activeSort = useSelector(state => state.filter.activeSort)
 
     //category
     const [activeCategory, setActiveCategory] = useState(0)
@@ -58,7 +61,7 @@ export default function Home() {
                     <div className="container">
                         <div className="content__top">
                             <Category activeCategory={activeCategory} setActiveCategory={setActiveCategory}/>
-                            <Sort activeSort={activeSort} setActiveSort={setActiveSort}/>
+                            <Sort/>
                         </div>
                         <h2 className="content__title">All pizzas</h2>
                         <div className="content__items">

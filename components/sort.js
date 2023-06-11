@@ -1,16 +1,18 @@
-import React, {useRef, useState, useEffect} from 'react';
+import React, {useRef, useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {setShowPopup} from "../redux/filterSlice"
+import {setShowPopup, setActiveSort} from "../redux/filterSlice"
 
-function Sort({activeSort, setActiveSort}) {
+function Sort() {
 
     // sort data and logic
     const sort = ["Popularity", "Price", "A-Z"]
 
     // show sort
-    //const [showPopup, setShowPopup] = useState(false)
     const showPopup = useSelector(state => state.filter.showPopup)
     const refSort = useRef()
+
+    //active sort
+    const activeSort = useSelector(state => state.filter.activeSort)
 
     const dispatch = useDispatch()
 
@@ -45,7 +47,7 @@ function Sort({activeSort, setActiveSort}) {
             {showPopup && <div className="sort__popup">
                 <ul>
                     {sort.map((item, i) => <li key={i} onClick={() => {
-                        setActiveSort(i)
+                        dispatch(setActiveSort(i))
                         dispatch(setShowPopup(false))
                     }}>{item}</li>)}
                 </ul>

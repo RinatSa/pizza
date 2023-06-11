@@ -1,7 +1,8 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-    showPopup: false
+    showPopup: false,
+    activeSort: 0
 }
 
 export const filterSlice = createSlice({
@@ -10,9 +11,12 @@ export const filterSlice = createSlice({
     reducers: {
         setShowPopup(state, action) {
             state.showPopup = action.payload
+        },
+        setActiveSort(state, action) {
+            state.activeSort = action.payload
         }
     }
 })
 
-export const {setShowPopup} = filterSlice.actions
+export const {setShowPopup, setActiveSort} = filterSlice.actions
 export default filterSlice.reducer

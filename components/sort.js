@@ -1,4 +1,6 @@
 import React, {useRef, useState, useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {setShowPopup} from "../redux/filterSlice"
 
 function Sort({activeSort, setActiveSort}) {
 
@@ -6,13 +8,16 @@ function Sort({activeSort, setActiveSort}) {
     const sort = ["Popularity", "Price", "A-Z"]
 
     // show sort
-    const [showPopup, setShowPopup] = useState(false)
+    //const [showPopup, setShowPopup] = useState(false)
+    const showPopup = useSelector(state => state.filter.showPopup)
     const refSort = useRef()
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
         const clickOut = (e) => {
             if (!e.composedPath().includes(refSort.current)) {
-                (setShowPopup(false))
+                dispatch(setShowPopup(false))
             }
         }
         document.body.addEventListener("click", clickOut)
@@ -35,13 +40,13 @@ function Sort({activeSort, setActiveSort}) {
                     />
                 </svg>
                 <b>Sort by:</b>
-                <span onClick={() => setShowPopup(prevProps => !prevProps)}>{sort[activeSort]}</span>
+                <span onClick={() => dispatch(setShowPopup(prevProps => !prevProps))}>{sort[activeSort]}</span>
             </div>
             {showPopup && <div className="sort__popup">
                 <ul>
                     {sort.map((item, i) => <li key={i} onClick={() => {
                         setActiveSort(i)
-                        setShowPopup(false)
+                        dispatch(setShowPopup(false))
                     }}>{item}</li>)}
                 </ul>
             </div>}

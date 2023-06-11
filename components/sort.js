@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 
 function Sort({activeSort, setActiveSort}) {
 
@@ -6,9 +6,21 @@ function Sort({activeSort, setActiveSort}) {
     const sort = ["Popularity", "Price", "A-Z"]
 
     // show sort
-    const [showPopup, setShowPopUp] = useState(false)
+    const [showPopup, setShowPopup] = useState(false)
+    const refSort = useRef()
+
+    useEffect(() => {
+        const clickOut = (e) => {
+            if (!e.composedPath().includes(refSort.current)) {
+                (setShowPopup(false))
+            }
+        }
+        document.body.addEventListener("click", clickOut)
+        return () => document.body.removeEventListener("click", clickOut)
+    })
+
     return (
-        <div className="sort">
+        <div className="sort" ref={refSort}>
             <div className="sort__label">
                 <svg
                     width="10"
@@ -23,13 +35,13 @@ function Sort({activeSort, setActiveSort}) {
                     />
                 </svg>
                 <b>Sort by:</b>
-                <span onClick={() => setShowPopUp(prevProps => !prevProps)}>{sort[activeSort]}</span>
+                <span onClick={() => setShowPopup(prevProps => !prevProps)}>{sort[activeSort]}</span>
             </div>
             {showPopup && <div className="sort__popup">
                 <ul>
                     {sort.map((item, i) => <li key={i} onClick={() => {
                         setActiveSort(i)
-                        setShowPopUp(false)
+                        setShowPopup(false)
                     }}>{item}</li>)}
                 </ul>
             </div>}

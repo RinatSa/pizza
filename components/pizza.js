@@ -1,11 +1,28 @@
 import React, {useState} from 'react';
+import {useDispatch} from "react-redux";
+import {addPizzas} from "../redux/pizzaSlice";
 
-function Pizza({imageUrl, title, price, sizes, types}) {
+function Pizza({imageUrl, title, price, sizes, types, id}) {
 
     const [size, setSize] = useState(0)
     const [dough, setDough] = useState(0)
     const [pizzasCount, setPizzasCount] = useState(0)
     const doughType = ["thin", "tradition"]
+
+    const dispatch = useDispatch()
+
+    const addPizzaToCart = () => {
+        const newPizza = {
+            id,
+            price,
+            title,
+            imageUrl,
+            count: 1
+        }
+        dispatch(addPizzas(newPizza))
+        setPizzasCount(pizzasCount + 1)
+    }
+
     return (
         <div className="pizza-block">
             <img
@@ -26,7 +43,8 @@ function Pizza({imageUrl, title, price, sizes, types}) {
             </div>
             <div className="pizza-block__bottom">
                 <div className="pizza-block__price">from {price} €</div>
-                <div className="button button--outline button--add" onClick={() => setPizzasCount(pizzasCount + 1)}>
+                <div className="button button--outline button--add"
+                     onClick={addPizzaToCart}>
                     <svg
                         width="12"
                         height="12"

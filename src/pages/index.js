@@ -7,6 +7,7 @@ import Pizza from "../../components/pizza";
 import {useEffect, useState} from "react";
 import Skeleton from "../../components/skeleton";
 import {useDispatch, useSelector} from "react-redux";
+import {fetchPizza} from "../../redux/apiSlice";
 
 //const inter = Inter({subsets: ['latin']})
 
@@ -15,7 +16,8 @@ export default function Home() {
     const dispatch = useDispatch()
 
     //pizzas data
-    const [pizzas, setPizzas] = useState([])
+    const pizzas = useSelector(state => state.api.pizzas)
+    console.log(pizzas)
 
     //sort
     const sortLabel = ["popularity", "price", "title"]
@@ -25,23 +27,16 @@ export default function Home() {
     const activeCategory = useSelector(state => state.filter.activeCategory)
 
     //loading
-    const [loading, setLoading] = useState(true)
+    const loading = useSelector(state => state.api.loading)
 
     //search
     const term = useSelector(state => state.filter.term)
 
 
     useEffect(() => {
-        setLoading(true)
-        getPizzas()
-        setLoading(false)
-    }, [activeSort])
+        dispatch(fetchPizza({sortLabel, activeSort}))
+    }, [dispatch, activeSort])
 
-    const getPizzas = async () => {
-        const res = await fetch(`https://64560f792e41ccf16912d161.mockapi.io/items?sortBy=${sortLabel[activeSort]}`)
-        const data = res.json()
-            .then(data => setPizzas(data))
-    }
 
     const filterByCategory = activeCategory === 0 ? pizzas : pizzas.filter(item => item.category === activeCategory)
 

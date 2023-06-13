@@ -2,11 +2,15 @@ import React from 'react';
 import Link from "next/link";
 import Search from "./search";
 import {useSelector} from "react-redux";
+import {useRouter} from "next/router";
 
 function Header() {
 
     const totalPrice = useSelector(state => state.pizzas.totalPrice)
     const totalCount = useSelector(state => state.pizzas.totalCount)
+
+    const router = useRouter()
+    const {pathname} = router
 
 
     return (
@@ -21,7 +25,7 @@ function Header() {
                         </div>
                     </div>
                 </Link>
-                <Search/>
+                {pathname !== "/cart" && <Search/>}
                 <div className="header__cart">
                     <Link href="/cart" className="button button--cart">
                         <span>{totalPrice} €</span>

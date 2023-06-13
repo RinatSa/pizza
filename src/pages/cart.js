@@ -14,6 +14,28 @@ function Cart() {
 
     const pizzasInCart = useSelector(state => state.pizzas.pizzas)
 
+    if (totalCount === 0) {
+        return (
+            <div className="content">
+                <div className="container container--cart">
+                    <div className="cart cart--empty">
+                        <h2>The basket is empty
+                            <icon>😕</icon>
+                        </h2>
+                        <p>
+                            Most likely, you haven't ordered pizza yet.<br/>
+                            To order a pizza, go to the main page.
+                        </p>
+                        <img src="empty-cart.png" alt="Empty cart"/>
+                        <Link href="/" className="button button--black">
+                            <span>Go back</span>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div className="wrapper">
             <Header/>

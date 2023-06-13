@@ -8,6 +8,7 @@ import {useEffect, useState} from "react";
 import Skeleton from "../../components/skeleton";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchPizza} from "../../redux/apiSlice";
+import ErrorMessage from "../../components/errorMessage";
 
 //const inter = Inter({subsets: ['latin']})
 
@@ -17,7 +18,6 @@ export default function Home() {
 
     //pizzas data
     const pizzas = useSelector(state => state.api.pizzas)
-    console.log(pizzas)
 
     //sort
     const sortLabel = ["popularity", "price", "title"]
@@ -32,6 +32,9 @@ export default function Home() {
     //search
     const term = useSelector(state => state.filter.term)
 
+    //error message
+    const error = useSelector(state => state.api.error)
+
 
     useEffect(() => {
         dispatch(fetchPizza({sortLabel, activeSort}))
@@ -41,6 +44,10 @@ export default function Home() {
     const filterByCategory = activeCategory === 0 ? pizzas : pizzas.filter(item => item.category === activeCategory)
 
     const searching = term === "" ? filterByCategory : filterByCategory.filter(item => item.title.toLowerCase().includes(term.toLowerCase()))
+
+    if (error) {
+        return <ErrorMessage/>
+    }
 
     return (
         <>
@@ -60,6 +67,7 @@ export default function Home() {
                         </div>
                         <h2 className="content__title">All pizzas</h2>
                         <div className="content__items">
+
                             {loading ? [...new Array(9)].map((item, i) => <div className="pizza-block" key={i}>
                                 <Skeleton uniqueKey={15}/>
                             </div>) : searching.map(item => <Pizza key={item.id} {...item}/>)}

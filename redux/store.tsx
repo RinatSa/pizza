@@ -1,7 +1,7 @@
 import {configureStore} from "@reduxjs/toolkit";
-import filter from "../redux/filterSlice"
-import pizzas from "../redux/pizzaSlice"
-import api from "../redux/apiSlice"
+import filter from "./filterSlice"
+import pizzas from "./pizzaSlice"
+import api from "./apiSlice"
 
 
 export const store = configureStore({

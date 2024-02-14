@@ -1,6 +1,25 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-export const fetchPizza = createAsyncThunk("api/fetchPizza",
+type FetchProps = {
+    sortLabel: string,
+    activeSort: number
+}
+
+type Pizza = {
+    id: number,
+    price: number,
+    title: string,
+    imageUrl: string,
+    count: number
+}
+
+interface ApiState {
+    pizzas: Pizza[],
+    loading: boolean,
+    error: boolean
+}
+
+export const fetchPizza = createAsyncThunk<Pizza[], FetchProps>("api/fetchPizza",
     async function (params) {
         const {sortLabel, activeSort} = params
         const data = await fetch(`https://64560f792e41ccf16912d161.mockapi.io/items?sortBy=${sortLabel[activeSort]}`)
@@ -8,7 +27,8 @@ export const fetchPizza = createAsyncThunk("api/fetchPizza",
     }
 )
 
-const initialState = {
+
+const initialState: ApiState = {
     pizzas: [],
     loading: true,
     error: false
@@ -23,7 +43,7 @@ export const apiSlice = createSlice({
             .addCase(fetchPizza.pending, (state) => {
                 state.loading = true
             })
-            .addCase(fetchPizza.fulfilled, (state, action) => {
+            .addCase(fetchPizza.fulfilled, (state, action: PayloadAction<Pizza[]>) => {
                 state.loading = false
                 state.pizzas = action.payload
             })

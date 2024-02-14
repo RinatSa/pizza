@@ -1,6 +1,13 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-const initialState = {
+interface FilterState {
+    showPopup: boolean,
+    activeSort: number,
+    activeCategory: number,
+    term: string
+}
+
+const initialState: FilterState = {
     showPopup: false,
     activeSort: 0,
     activeCategory: 0,
@@ -11,16 +18,16 @@ export const filterSlice = createSlice({
     name: "filter",
     initialState,
     reducers: {
-        setShowPopup(state, action) {
+        setShowPopup(state, action: PayloadAction<boolean>) {
             state.showPopup = action.payload
         },
-        setActiveSort(state, action) {
+        setActiveSort(state, action: PayloadAction<number>) {
             state.activeSort = action.payload
         },
-        setActiveCategory(state, action) {
+        setActiveCategory(state, action: PayloadAction<number>) {
             state.activeCategory = action.payload
         },
-        setTerm(state, action) {
+        setTerm(state, action: PayloadAction<string>) {
             state.term = action.payload
         }
     }

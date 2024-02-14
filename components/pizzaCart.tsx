@@ -2,7 +2,18 @@ import React from 'react';
 import {plus, minus, clearLine} from "../redux/pizzaSlice";
 import {useDispatch} from "react-redux";
 
-function PizzaCart({title, price, count, imageUrl,id}) {
+type Pizza = {
+    id: number,
+    price: number,
+    title: string,
+    imageUrl: string,
+    count: number,
+    category: number,
+    sizes: number[],
+    types: number[]
+}
+
+function PizzaCart({title, price, count, imageUrl, id}: Pizza) {
 
     const dispatch = useDispatch()
 

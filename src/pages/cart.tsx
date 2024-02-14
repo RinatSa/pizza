@@ -1,18 +1,17 @@
 import React from 'react';
 import Header from "../../components/header";
 import Link from "next/link";
-import {useDispatch, useSelector} from "react-redux";
 import PizzaCart from "../../components/pizzaCart";
 import {clearAll} from "../../redux/pizzaSlice";
+import {useAppDispatch, useAppSelector} from "../../hooks";
 
 function Cart() {
 
-    const totalCount = useSelector(state => state.pizzas.totalCount)
-    const totalPrice = useSelector(state => state.pizzas.totalPrice)
+    const dispatch = useAppDispatch()
 
-    const dispatch = useDispatch()
-
-    const pizzasInCart = useSelector(state => state.pizzas.pizzas)
+    const totalCount = useAppSelector(state => state.pizzas.totalCount)
+    const totalPrice = useAppSelector(state => state.pizzas.totalPrice)
+    const pizzasInCart = useAppSelector(state => state.pizzas.pizzas)
 
     if (totalCount === 0) {
         return (
@@ -20,10 +19,10 @@ function Cart() {
                 <div className="container container--cart">
                     <div className="cart cart--empty">
                         <h2>The basket is empty
-                            <icon>😕</icon>
+                            <span>😕</span>
                         </h2>
                         <p>
-                            Most likely, you haven't ordered pizza yet.<br/>
+                            Most likely, you have not ordered pizza yet.<br/>
                             To order a pizza, go to the main page.
                         </p>
                         <img src="empty-cart.png" alt="Empty cart"/>

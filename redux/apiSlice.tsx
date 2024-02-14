@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 type FetchProps = {
-    sortLabel: string,
+    sortLabel: string[],
     activeSort: number
 }
 
@@ -10,7 +10,10 @@ type Pizza = {
     price: number,
     title: string,
     imageUrl: string,
-    count: number
+    count: number,
+    category: number,
+    sizes: number,
+    types: number[]
 }
 
 interface ApiState {

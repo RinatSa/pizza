@@ -4,36 +4,36 @@ import Header from "../../components/header";
 import Category from "../../components/category";
 import Sort from "../../components/sort";
 import Pizza from "../../components/pizza";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import Skeleton from "../../components/skeleton";
-import {useDispatch, useSelector} from "react-redux";
 import {fetchPizza} from "../../redux/apiSlice";
 import ErrorMessage from "../../components/errorMessage";
+import {useAppDispatch, useAppSelector} from "../../hooks";
 
 //const inter = Inter({subsets: ['latin']})
 
 export default function Home() {
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     //pizzas data
-    const pizzas = useSelector(state => state.api.pizzas)
+    const pizzas = useAppSelector(state => state.api.pizzas)
 
     //sort
-    const sortLabel = ["popularity", "price", "title"]
-    const activeSort = useSelector(state => state.filter.activeSort)
+    const sortLabel: string[] = ["popularity", "price", "title"]
+    const activeSort = useAppSelector(state => state.filter.activeSort)
 
     //category
-    const activeCategory = useSelector(state => state.filter.activeCategory)
+    const activeCategory = useAppSelector(state => state.filter.activeCategory)
 
     //loading
-    const loading = useSelector(state => state.api.loading)
+    const loading = useAppSelector(state => state.api.loading)
 
     //search
-    const term = useSelector(state => state.filter.term)
+    const term = useAppSelector(state => state.filter.term)
 
     //error message
-    const error = useSelector(state => state.api.error)
+    const error = useAppSelector(state => state.api.error)
 
 
     useEffect(() => {
@@ -68,7 +68,7 @@ export default function Home() {
                         <h2 className="content__title">All pizzas</h2>
                         <div className="content__items">
 
-                            {loading ? [...new Array(9)].map((item, i) => <div className="pizza-block" key={i}>
+                            {loading ? [...new Array(9)].map((_, i) => <div className="pizza-block" key={i}>
                                 <Skeleton uniqueKey={15}/>
                             </div>) : searching.map(item => <Pizza key={item.id} {...item}/>)}
                         </div>

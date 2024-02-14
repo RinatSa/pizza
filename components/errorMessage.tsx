@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ErrorMessage(props) {
+function ErrorMessage() {
     return (
         <div>
             <span style={{fontSize: 32}}>Something is wrong</span>

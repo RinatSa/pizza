@@ -12,7 +12,7 @@ type Pizza = {
     imageUrl: string,
     count: number,
     category: number,
-    sizes: number,
+    sizes: number[],
     types: number[]
 }
 

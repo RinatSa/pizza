@@ -1,13 +1,13 @@
 import React from 'react';
 import Link from "next/link";
 import Search from "./search";
-import {useSelector} from "react-redux";
 import {useRouter} from "next/router";
+import {useAppSelector} from "../hooks";
 
 function Header() {
 
-    const totalPrice = useSelector(state => state.pizzas.totalPrice)
-    const totalCount = useSelector(state => state.pizzas.totalCount)
+    const totalPrice = useAppSelector(state => state.pizzas.totalPrice)
+    const totalCount = useAppSelector(state => state.pizzas.totalCount)
 
     const router = useRouter()
     const {pathname} = router

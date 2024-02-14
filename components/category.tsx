@@ -1,11 +1,11 @@
 import React from 'react';
-import {useDispatch, useSelector} from "react-redux";
 import {setActiveCategory} from "../redux/filterSlice"
+import {useAppDispatch, useAppSelector} from "../hooks";
 
 function Category() {
 
-    const dispatch = useDispatch()
-    const activeCategory = useSelector(state => state.filter.activeCategory)
+    const dispatch = useAppDispatch()
+    const activeCategory = useAppSelector(state => state.filter.activeCategory)
 
     const category = [
         {id: 0, label: "All"},

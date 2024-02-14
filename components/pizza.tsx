@@ -2,11 +2,22 @@ import React, {useState} from 'react';
 import {useDispatch} from "react-redux";
 import {addPizzas} from "../redux/pizzaSlice";
 
-function Pizza({imageUrl, title, price, sizes, types, id}) {
+type Pizza = {
+    id: number,
+    price: number,
+    title: string,
+    imageUrl: string,
+    count: number,
+    category: number,
+    sizes: number[],
+    types: number[]
+}
 
-    const [size, setSize] = useState(0)
-    const [dough, setDough] = useState(0)
-    const [pizzasCount, setPizzasCount] = useState(0)
+function Pizza({imageUrl, title, price, sizes, types, id, category}: Pizza) {
+
+    const [size, setSize] = useState<number>(0)
+    const [dough, setDough] = useState<number>(0)
+    const [pizzasCount, setPizzasCount] = useState<number>(0)
     const doughType = ["thin", "tradition"]
 
     const dispatch = useDispatch()
@@ -17,6 +28,9 @@ function Pizza({imageUrl, title, price, sizes, types, id}) {
             price,
             title,
             imageUrl,
+            category,
+            sizes,
+            types,
             count: 1
         }
         dispatch(addPizzas(newPizza))
